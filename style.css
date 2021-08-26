@@ -109,8 +109,7 @@ form h3 {
 
 input,
 select,
-textarea,
-button {
+textarea {
 	margin: 5px 0;
 	background: #eee;
 	border: 1px solid #ddd;
