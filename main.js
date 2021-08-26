@@ -71,15 +71,6 @@ function infoAppointment(tglLahir, nama) {
 }
 console.log(infoAppointment('1992/05/11','bhs'));
 
-
-
-
-// Ambil Value dari HTML
-
-
-// let arr = []
-//----------------------
-
 let dataPengunjung = {
   name: undefined,     
   tglLahir: undefined,     
@@ -94,16 +85,10 @@ let dataPengunjung = {
 
 //ID berisi inisial nama, tanggal, dan nama poli. (ex. poli anak)
 
-
 let submit = document.getElementById('form-create')
 submit.onsubmit = createAppointment
 
-
-function chooseDoc(event) {
-  
-  let jam = Number(event.target.value.replace(':', ''))
-  let poli = document.getElementById('poliklinik').value
-
+function chooseDoc(jam, poli) {
   if (jam >= 800 && jam <= 1059) {
     document.getElementById('dokter').value = dataBase[poli][0]
   } else if (jam >= 1100 && jam <= 1359) {
@@ -118,11 +103,24 @@ function chooseDoc(event) {
     document.getElementById('dokter').value = dataBase[poli][2]
   }
 }
-document.getElementById('appointmentTime').addEventListener('change', chooseDoc)
+
+function choosePoli(event) {
+  let jam = Number(document.getElementById('appointmentTime').value.replace(':', ''))
+  let poli = event.target.value
+  chooseDoc(jam, poli)
+}
+
+function handleTimeChange(event) {
+  let jam = Number(event.target.value.replace(':', ''))
+  let poli = document.getElementById('poliklinik').value
+  chooseDoc(jam, poli)
+}
+document.getElementById('appointmentTime').addEventListener('change', handleTimeChange)
+
+document.getElementById('poliklinik').addEventListener('change', choosePoli)
 
 function generateId(nama, tgl, poli) {
   let id = `${nama[0].toUpperCase() + tgl + poli[0].toUpperCase() + poli[1].toUpperCase()}`
-  
   return id
 }
 
@@ -148,7 +146,6 @@ function createAppointment(event) {
   let tanggal = dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 2] + dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 1]
 
   dataPengunjung.idPengunjung = generateId(dataPengunjung.name, tanggal, dataPengunjung.poli)
-  // console.log(dataPengunjung)
   arr.push(dataPengunjung)
   event.preventDefault()
 }
@@ -163,11 +160,6 @@ let pengunjung = {
   keluhan: 'gusi bengkak',     
   dateBooking: '2021/08/21'
 }  
-// console.log(chooseDoc(pengunjung));
-
-//Generate ID
-
-// function delete data pengunjung
 
 function deleteApp(idPengunjung){
   let temp = []
