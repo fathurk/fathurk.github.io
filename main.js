@@ -153,5 +153,18 @@ let pengunjung = {
 
 //Generate ID
 
+// function delete data pengunjung
+
+function deleteApp(idPengunjung){
+  let temp = []
+
+  temp = arr.filter(function(value){
+    return value.idPengunjung !== idPengunjung
+  })
+
+  arr = temp
+  console.log(arr)
+}
+
 
 
