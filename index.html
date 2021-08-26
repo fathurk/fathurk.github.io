@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>H8SPITAL</title>
+    <title>H🦊SPITAL</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
@@ -52,11 +53,11 @@
         <h1 data-aos="fade-up" data-aos-duration="1200">Booking Appointment</h1>
         <div class="card" data-aos="zoom-in" data-aos-duration="1200">
             <!-- ganti value onSubmit dengan nama function ketika disubmit -->
-            <form id="form-create">
+            <form onsubmit="createAppointment()">
                 <h3>Data Diri</h3>
                 <div class="inputs">
                     <label for="nama">Nama</label>
-                    <input type="text" name="nama" id="nama" placeholder="Nama Pasien" req>
+                    <input type="text" name="nama" id="nama" placeholder="Nama Pasien" required>
                 </div>
                 <div class="inputs">
                     <label for="gender">Jenis Kelamin</label>
@@ -67,7 +68,7 @@
                 </div>
                 <div class="inputs">
                     <label for="birthday">Tanggal Lahir</label>
-                    <input type="date" name="birthday" id="birthday">
+                    <input type="date" name="birthday" id="birthday" required>
                 </div>
                 <h3>Pilih Layanan</h3>
                 <div class="inputs">
@@ -87,16 +88,16 @@
                 </div>
                 <div class="inputs">
                     <label for="appointmentDate">Tanggal Appointment</label>
-                    <input type="date" name="appointmentDate" id="appointmentDate">
+                    <input type="date" name="appointmentDate" id="appointmentDate" required>
                 </div>
                 <div class="inputs">
                     <label for="appointmentTime">Waktu Appointment</label>
                     <!-- batesin dari jem 8 pagi sampe 5 sore -->
-                    <input type="time" name="appointmentTime" id="appointmentTime">
+                    <input type="time" name="appointmentTime" id="appointmentTime" required>
                 </div>
                 <div class="inputs">
                     <label for="keluhan">Keluhan</label>
-                    <textarea name="keluhan" id="keluhan" cols="30" rows="3" placeholder="Keluhan Pasien"></textarea>
+                    <textarea name="keluhan" id="keluhan" cols="30" rows="3" placeholder="Keluhan Pasien" required></textarea>
                 </div>
                 <input type="submit" value="Booking Sekarang">
             </form>
@@ -107,31 +108,37 @@
         <h1 data-aos="fade-up" data-aos-duration="1200">Cari Appointment</h1>
         <div class="card" data-aos="zoom-in" data-aos-duration="1200">
             <!-- ganti value onSubmit dengan nama function ketika disubmit -->
-            <form id="form-read">
+            <form onsubmit="">
                 <h3>Data Diri</h3>
                 <div class="inputs">
                     <label for="nameSearch">Nama</label>
-                    <input type="text" name="nameSearch" id="nameSearch" placeholder="Nama Pasien">
+                    <input type="text" name="nameSearch" id="nameSearch" placeholder="Nama Pasien" required>
                 </div>
                 <div class="inputs">
                     <label for="birthdaySearch">Tanggal Lahir</label>
-                    <input type="date" name="birthdaySearch" id="birthdaySearch">
+                    <input type="date" name="birthdaySearch" id="birthdaySearch" required>
                 </div>
                 <input type="submit" value="Cari Appointment">
             </form>
         </div>
 
-        <!-- placeholder -->
+        <!-- placeholder, ganti dengan variabel sesungguhnya -->
         <section id="result">
-            <div class="card">
-                <span class="name">Nama</span>
-                <!-- jenis kelamin --> / <!-- tanggal lahir --> 
-            
+            <div class="wrapper">
+                <!-- tambahin class anak/umum/gigi/internis/bedah ke class="card"-->
+                <div class="card">
+                    <span style="font-weight: 600;">Nama 1</span>
+                    Jenis Kelamin / Tanggal Lahir <br><br>
+                    <span style="font-weight: 600;">Poliklinik <br></span>
+                    Nama Dokter <br>
+                    Tanggal Appointment / Waktu Appointment <br>
+                    Keluhan
 
-
+                    <button class="cancel" onclick="">
+                        Cancel Appointment
+                    </button>
+                </div>
             </div>
-            <div class="card"></div>
-            <div class="card"></div>
         </section>
     </section>
 
@@ -152,7 +159,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script src="main.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
       AOS.init();
