@@ -158,3 +158,11 @@ footer {
 	padding: 20px;
 	text-align: center;
 }
+
+.alert {
+	/* display: none; */
+	position: fixed;
+	top: 90%;
+	left: 50%;
+	transform: translateX(-50%);
+}
