@@ -1,26 +1,77 @@
 // //jika sabtu minggu yang enable poliUmum 
 // 09 s/d 18 diluar itu  jam istirahat atau di luar jam kerja
-function infoAppointment(user) {     
-  const dataBase = [         
-      {namePoli: 'poli anak', dokter: ['Raihan','Matthew','fathur']},
-      {namePoli: 'poli internis', dokter: ['Agnia','Arif','Colin']},
-      {namePoli: 'poli gigi', dokter: ['Darwin','Yura','Huang']},
-      {namePoli: 'poli umum', dokter:['Gilbert','Krisna','Juluis']},
-      {namePoli: 'poli bedah', dokter:['Indra','Vina','Royan']}
-  ]
-  let hariKerja = ['senin','selasa','rabu','kamis','jumat']
-  let hari = ['senin','selasa','rabu','kamis','jumat', 'sabtu', 'minggu']              
-  let output = []     
-  for (let i = 0; i < dataBase.length; i++) {         
-      console.log(dataBase[i].dokter);
-  }  
+const dataBase = [         
+    {namePoli: 'poli anak', dokter: ['Raihan','Matthew','fathur']},
+    {namePoli: 'poli internis', dokter: ['Agnia','Arif','Colin']},
+    {namePoli: 'poli gigi', dokter: ['Darwin','Yura','Huang']},
+    {namePoli: 'poli umum', dokter:['Gilbert','Krisna','Juluis']},
+    {namePoli: 'poli bedah', dokter:['Indra','Vina','Royan']}
+]
+
+let arr = [
+  {
+    name: 'haha',     
+    tglLahir: '02/07/2003',     
+    gender: 'female',     
+    poli: 'umum',     
+    keluhan: 'sakit kepala',
+    dokter: 'Vina',
+    jam: '09:00',     
+    dateBooking: '03/09/2021',
+    idPengunjung: '01'
+  },
+  {
+    name: 'haha',     
+    tglLahir: '02/07/2003',     
+    gender: 'female',     
+    poli: 'umum',     
+    keluhan: 'sakit kepala',
+    dokter: 'Vina',
+    jam: '09:00',     
+    dateBooking: '03/09/2021',
+    idPengunjung: '02'
+  },
+  {
+    name: 'bhs',     
+    tglLahir: '1992/05/11',     
+    gender: 'female',     
+    poli: 'umum',     
+    keluhan: 'sakit perut',
+    dokter: 'Vina',
+    jam: '09:00',     
+    dateBooking: '03/09/2021',
+    idPengunjung: '03'
+  },
+  {
+    name: 'haha',     
+    tglLahir: '2003/07/21',     
+    gender: 'female',     
+    poli: 'poli bedah',     
+    keluhan: 'sakit kepala',
+    dokter: 'Vina',
+    jam: '09:00',     
+    dateBooking: '03/09/2021',
+    idPengunjung: 'H'
+  }
+]
+function infoAppointment(tglLahir, nama) {     
+  let output = []
+  output = arr.filter(function(value) {
+   return nama === value.name && tglLahir === value.tglLahir
+  })
+  return output
+
 }
+console.log(infoAppointment('1992/05/11','bhs'));
+
+
+
 
 // Ambil Value dari HTML
 
+
+// let arr = []
 //----------------------
-
-
 
 let dataPengunjung = {
   name: undefined,     
@@ -66,7 +117,8 @@ function createAppointment(event) {
   let tanggal = dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 2] + dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 1]
 
   dataPengunjung.idPengunjung = generateId(dataPengunjung.name, tanggal, dataPengunjung.poli)
-  console.log(dataPengunjung)
+  // console.log(dataPengunjung)
+  arr.push(dataPengunjung)
   event.preventDefault()
 }
 
