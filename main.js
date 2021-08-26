@@ -17,60 +17,62 @@ function infoAppointment(user) {
 }
 
 // Ambil Value dari HTML
-let namaPengunjung = document.getElementById('nama') 
-let genderPengunjung = document.getElementById('gender')
-let tanggalLahir = document.getElementById('birthday')
-let poliklinik = document.getElementById('poliklinik')
-let tanggalAppointment = document.getElementById('appointmentDate')
-let keluhan = document.getElementById('keluhan')
+
 //----------------------
 
+
+
 let dataPengunjung = {
-name: namaPengunjung,     
-tglLahir: tanggalLahir,     
-gender: genderPengunjung,     
-poli: poliklinik,     
-keluhan,     
-dateBooking: tanggalAppointment  
+  name: undefined,     
+  tglLahir: undefined,     
+  gender: undefined,     
+  poli: undefined,     
+  keluhan: undefined,
+  dokter: undefined,
+  jam: undefined,     
+  dateBooking: undefined,
+  idPengunjung: undefined
 }  
 
-//Masukin semua value terbaru ke dalam object
-namaPengunjung.addEventListener('change', (event) => {
-dataPengunjung.name = namaPengunjung.value
-})
-genderPengunjung.addEventListener('change', (event) => {
-dataPengunjung.gender = genderPengunjung.value
-})
-tanggalLahir.addEventListener('change', (event) => {
-dataPengunjung.tglLahir = tanggalLahir.value
-})
-poliklinik.addEventListener('change', (event) => {
-dataPengunjung.poli = poliklinik.value
-})
-tanggalAppointment.addEventListener('change', (event) => {
-dataPengunjung.dateBooking = tanggalAppointment.value
-console.log(dataPengunjung.dateBooking)
-})
-keluhan.addEventListener('change', (event) => {
-dataPengunjung.keluhan = keluhan.value
-})
-
-let tanggal = dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 2] + dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 1]
-//Generate ID
-let kodePoli = {
-'poli anak': 'PA',
-'poli gigi': 'PG',
-'poli internis': 'PI',
-'poli bedah': 'PB',
-'poli umum': 'PU'
-}
-
 //ID berisi inisial nama, tanggal, dan nama poli. (ex. poli anak)
+
+
+let submit = document.getElementById('form-create')
+submit.onsubmit = createAppointment
+
 function generateId(nama, tgl, poli) {
-let id = `${nama[0].toUpperCase() + tgl + kodePoli[poli]}`
-return id
+  let id = `${nama[0].toUpperCase() + tgl + poli[0].toUpperCase() + poli[1].toUpperCase()}`
+
+  return id
 }
-let idPengunjung = generateId(dataPengunjung.nama, tanggal, dataPengunjung.poli)
+
+function createAppointment(event) {
+  let namaPengunjung = document.getElementById('nama').value 
+  let genderPengunjung = document.getElementById('gender').value
+  let tanggalLahir = document.getElementById('birthday').value
+  let poliklinik = document.getElementById('poliklinik').value
+  let tanggalAppointment = document.getElementById('appointmentDate').value
+  let keluhan = document.getElementById('keluhan').value
+  let jam = document.getElementById('appointmentTime').value
+
+  dataPengunjung.name = namaPengunjung.toLowerCase()
+  dataPengunjung.gender = genderPengunjung
+  dataPengunjung.tglLahir = tanggalLahir
+  dataPengunjung.poli = poliklinik
+  dataPengunjung.dateBooking = tanggalAppointment
+  dataPengunjung.keluhan = keluhan
+  dataPengunjung.jam = jam
+
+  let tanggal = dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 2] + dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 1]
+
+  dataPengunjung.idPengunjung = generateId(dataPengunjung.name, tanggal, dataPengunjung.poli)
+  console.log(dataPengunjung)
+  event.preventDefault()
+}
+
+
+
+//Generate ID
 
 
 
