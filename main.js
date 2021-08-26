@@ -70,7 +70,34 @@ function createAppointment(event) {
   event.preventDefault()
 }
 
+function chooseDoc(user) {
+  let dataDoc = avaliableDoc(user)
+  let jam = Number(user.waktuAppointment)
+  let output = ''
+  if ( jam >= 8 && jam <= 10.59) {
+    output = dataDoc[0]
+  } else if (jam >= 11 && jam <= 13.59) {
+    output = dataDoc[1]
+  } else if ( jam >= 14 && jam <= 17) {
+    output = dataDoc[2]
+  } else {
 
+    output = `yang tersedia hanya dokter poli umum `
+  }
+  return output
+
+}
+
+let pengunjung = {
+  name: 'Surya',     
+  tglLaahir: '18/06/1996',     
+  gender: 'male',     
+  poli: 'poli gigi',  
+  waktuAppointment: '13:20',   
+  keluhan: 'gusi bengkak',     
+  dateBooking: '2021/08/21'
+}  
+// console.log(chooseDoc(pengunjung));
 
 //Generate ID
 
