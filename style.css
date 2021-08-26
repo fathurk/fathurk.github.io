@@ -60,10 +60,11 @@ header a {
 
 .content h1 {
 	font-size: 5em;
+	font-weight: 700;
 }
 
 .buttons {
-	margin-top: 150px;
+	margin-top: 5vh;
 	font-size: 1.2em;
 }
 
@@ -78,18 +79,23 @@ header a {
 .scroll {
 	display: block;
 	position: absolute;
-	bottom: 50px;
+	bottom: 5vh;
 	text-align: center;
 }
+
+.scroll h3 {
+	font-size: 1.5em;
+}
+
 .scroll svg {
-	margin-top: 20px;
+	margin-top: 2vh;
 	fill: rgb(241, 102, 52);
 }
 
 .card {
 	display: flex;
 	margin: 50px;
-	background-color: #eee;
+	background-color: #fff;
 	box-shadow: 0 5px 35px rgba(0, 0, 0, 0.18);
 	padding: 50px;
 	border-radius: 3mm;
@@ -140,6 +146,7 @@ input[type='submit'] {
 	text-align: center;
 	width: 100%;
 	transition-duration: 200ms;
+	font-size: 1.2em;
 }
 
 input[type='submit']:hover {
