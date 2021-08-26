@@ -2,11 +2,14 @@
 // 09 s/d 18 diluar itu  jam istirahat atau di luar jam kerja
 function infoAppointment(user) {     
     const dataBase = [         
-        {namePoli: 'poli anak', dokter: ['Raihan','Matthew','fathur']},         {namePoli: 'poli internis', dokter: ['Agnia','Arif','Colin']},
+        {namePoli: 'poli anak', dokter: ['Raihan','Matthew','fathur']},
+        {namePoli: 'poli internis', dokter: ['Agnia','Arif','Colin']},
         {namePoli: 'poli gigi', dokter: ['Darwin','Yura','Huang']},
-        {namePoli: 'poli umum', dokter:['Gilbert','Krisna','Juluis']},         {namePoli: 'poli bedah', dokter:['Indra','Vina','Royan']}
+        {namePoli: 'poli umum', dokter:['Gilbert','Krisna','Juluis']},
+        {namePoli: 'poli bedah', dokter:['Indra','Vina','Royan']}
     ]
-    let avaliable = ['senin','selsa','rabu','kamis','jumat']              
+    let hariKerja = ['senin','selasa','rabu','kamis','jumat']
+    let hari = ['senin','selasa','rabu','kamis','jumat', 'sabtu', 'minggu']              
     let output = []     
     for (let i = 0; i < dataBase.length; i++) {         
         console.log(dataBase[i].dokter);
@@ -22,8 +25,6 @@ let pengunjung = {
 }  
 console.log(infoAppointment(pengunjung));
 
-
-
 let input = []
 
 let kodePoli = {
@@ -33,7 +34,7 @@ let kodePoli = {
   'poli bedah': 'PB',
   'poli umum': 'PU'
 }
-//ID berisi inisial nama, tanggal, dan nama poli. (ex. anak)
+//ID berisi inisial nama, tanggal, dan nama poli. (ex. poli anak)
 function generateId(nama, tgl, poli) {
   let id = `${nama[0].toUpperCase() + tgl + kodePoli[poli]}`
   return id
