@@ -88,7 +88,7 @@ header a {
 	box-shadow: 0 5px 35px rgba(0, 0, 0, 0.18);
 	padding: 50px;
 	border-radius: 3mm;
-	width: 40vw;
+	min-width: 800px;
 	justify-content: center;
 }
 
@@ -137,6 +137,7 @@ input[type='submit'] {
 	text-align: center;
 	width: 100%;
 }
+
 input[type='submit']:hover {
 	cursor: pointer;
 }
@@ -151,6 +152,7 @@ input[type='submit']:hover {
 
 #search .card {
 	flex-direction: column;
+	margin: 20px;
 }
 
 footer {

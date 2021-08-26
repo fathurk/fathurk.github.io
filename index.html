@@ -50,9 +50,10 @@
     </section>
 
     <section id="booking">
-        <h1 >Booking Appointment</h1>
-        <div class="card" data-aos="fade-up" data-aos-duration="1200">
-            <form action="result.html">
+        <h1 data-aos="fade-up" data-aos-duration="1200">Booking Appointment</h1>
+        <div class="card" data-aos="zoom-in" data-aos-duration="1200">
+            <!-- ganti value onSubmit dengan nama function ketika disubmit -->
+            <form onsubmit="">
                 <h3>Data Diri</h3>
                 <div class="inputs">
                     <label for="nama">Nama</label>
@@ -106,19 +107,32 @@
     <section id="search">
         <h1 data-aos="fade-up" data-aos-duration="1200">Cari Appointment</h1>
         <div class="card" data-aos="zoom-in" data-aos-duration="1200">
-            <div class="inputs">
-                <label for="nameSearch">Nama</label>
-                <input type="text" name="nameSearch" id="nameSearch" placeholder="Nama Pasien">
-            </div>
-            <div class="inputs">
-                <label for="birthdaySearch">Tanggal Lahir</label>
-                <input type="date" name="birthdaySearch" id="birthdaySearch">
-            </div>
-            <input type="submit" value="Cari Appointment">
+            <!-- ganti value onSubmit dengan nama function ketika disubmit -->
+            <form onsubmit="">
+                <div class="inputs">
+                    <label for="nameSearch">Nama</label>
+                    <input type="text" name="nameSearch" id="nameSearch" placeholder="Nama Pasien">
+                </div>
+                <div class="inputs">
+                    <label for="birthdaySearch">Tanggal Lahir</label>
+                    <input type="date" name="birthdaySearch" id="birthdaySearch">
+                </div>
+                <input type="submit" value="Cari Appointment">
+            </form>
         </div>
 
+        <!-- placeholder -->
         <section id="result">
-            <div class="card"></div>
+            <div class="card">
+                <div class="result">
+                    <span class="name">Nama</span>
+                </div>
+                <div class="result">
+                    <span>/</span>
+                </div>
+
+
+            </div>
             <div class="card"></div>
             <div class="card"></div>
         </section>
