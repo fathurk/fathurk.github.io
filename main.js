@@ -130,7 +130,7 @@ function createAppointment(event) {
 	let keluhan = document.getElementById('keluhan').value;
 	let jam = document.getElementById('appointmentTime').value;
 
-	dataPengunjung.name = namaPengunjung.toLowerCase();
+	dataPengunjung.name = namaPengunjung.toUpperCase();
 	dataPengunjung.gender = genderPengunjung;
 	dataPengunjung.tglLahir = tanggalLahir;
 	dataPengunjung.poli = poliklinik;
