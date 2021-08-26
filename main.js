@@ -1,12 +1,19 @@
 // //jika sabtu minggu yang enable poliUmum 
 // 09 s/d 18 diluar itu  jam istirahat atau di luar jam kerja
-const dataBase = [         
-    {namePoli: 'poli anak', dokter: ['Raihan','Matthew','fathur']},
-    {namePoli: 'poli internis', dokter: ['Agnia','Arif','Colin']},
-    {namePoli: 'poli gigi', dokter: ['Darwin','Yura','Huang']},
-    {namePoli: 'poli umum', dokter:['Gilbert','Krisna','Juluis']},
-    {namePoli: 'poli bedah', dokter:['Indra','Vina','Royan']}
-]
+// const dataBase = [         
+//     {namePoli: 'anak', dokter: ['Raihan','Matthew','fathur']},
+//     {namePoli: 'internis', dokter: ['Agnia','Arif','Colin']},
+//     {namePoli: 'gigi', dokter: ['Darwin','Yura','Huang']},
+//     {namePoli: 'umum', dokter:['Gilbert','Krisna','Juluis']},
+//     {namePoli: 'bedah', dokter:['Indra','Vina','Royan']}
+// ]
+const dataBase = {
+  anak:  ['Raihan','Matthew','fathur'],
+  internis:  ['Agnia','Arif','Colin'],
+  gigi: ['Darwin','Yura','Huang'],
+  umum: ['Gilbert','Krisna','Juluis'],
+  bedah: ['Indra','Vina','Royan']
+}
 
 let arr = [
   {
@@ -91,11 +98,35 @@ let dataPengunjung = {
 let submit = document.getElementById('form-create')
 submit.onsubmit = createAppointment
 
+
+function chooseDoc(event) {
+  
+  let jam = Number(event.target.value.replace(':', ''))
+  let poli = document.getElementById('poliklinik').value
+
+  if (jam >= 800 && jam <= 1059) {
+    document.getElementById('dokter').value = dataBase[poli][0]
+  } else if (jam >= 1100 && jam <= 1359) {
+    document.getElementById('dokter').value = dataBase[poli][1]
+  } else if ( jam >= 1400 && jam <= 1700) {
+    document.getElementById('dokter').value = dataBase[poli][2]
+  } else if (jam < 800) {
+    document.getElementById('appointmentTime').value = '08:00'
+    document.getElementById('dokter').value = dataBase[poli][0]
+  } else if (jam > 1700) {
+    document.getElementById('appointmentTime').value = '17:00'
+    document.getElementById('dokter').value = dataBase[poli][2]
+  }
+}
+document.getElementById('appointmentTime').addEventListener('change', chooseDoc)
+
 function generateId(nama, tgl, poli) {
   let id = `${nama[0].toUpperCase() + tgl + poli[0].toUpperCase() + poli[1].toUpperCase()}`
-
+  
   return id
 }
+
+
 
 function createAppointment(event) {
   let namaPengunjung = document.getElementById('nama').value 
@@ -122,23 +153,6 @@ function createAppointment(event) {
   event.preventDefault()
 }
 
-function chooseDoc(user) {
-  let dataDoc = avaliableDoc(user)
-  let jam = Number(user.waktuAppointment)
-  let output = ''
-  if ( jam >= 8 && jam <= 10.59) {
-    output = dataDoc[0]
-  } else if (jam >= 11 && jam <= 13.59) {
-    output = dataDoc[1]
-  } else if ( jam >= 14 && jam <= 17) {
-    output = dataDoc[2]
-  } else {
-
-    output = `yang tersedia hanya dokter poli umum `
-  }
-  return output
-
-}
 
 let pengunjung = {
   name: 'Surya',     
