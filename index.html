@@ -52,7 +52,7 @@
         <h1 data-aos="fade-up" data-aos-duration="1200">Booking Appointment</h1>
         <div class="card" data-aos="zoom-in" data-aos-duration="1200">
             <!-- ganti value onSubmit dengan nama function ketika disubmit -->
-            <form onsubmit="">
+            <form onsubmit="createAppointment()">
                 <h3>Data Diri</h3>
                 <div class="inputs">
                     <label for="nama">Nama</label>
@@ -108,6 +108,7 @@
         <div class="card" data-aos="zoom-in" data-aos-duration="1200">
             <!-- ganti value onSubmit dengan nama function ketika disubmit -->
             <form onsubmit="">
+                <h3>Data Diri</h3>
                 <div class="inputs">
                     <label for="nameSearch">Nama</label>
                     <input type="text" name="nameSearch" id="nameSearch" placeholder="Nama Pasien">
@@ -123,12 +124,9 @@
         <!-- placeholder -->
         <section id="result">
             <div class="card">
-                <div class="result">
-                    <span class="name">Nama</span>
-                </div>
-                <div class="result">
-                    <span>/</span>
-                </div>
+                <span class="name">Nama</span>
+                <!-- jenis kelamin --> / <!-- tanggal lahir --> 
+            
 
 
             </div>
