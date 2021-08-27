@@ -8,7 +8,7 @@ const db_poliklinik = {
 
 let db_appointments = [
 	{
-		name: 'Damar',
+		name: 'damar',
 		tglLahir: '1998-08-17',
 		gender: 'male',
 		poli: 'umum',
@@ -19,7 +19,7 @@ let db_appointments = [
 		idPengunjung: '01',
 	},
 	{
-		name: 'Damar',
+		name: 'damar',
 		tglLahir: '1998-08-17',
 		gender: 'male',
 		poli: 'internis',
@@ -30,7 +30,7 @@ let db_appointments = [
 		idPengunjung: '01',
 	},
 	{
-		name: 'Damar',
+		name: 'damar',
 		tglLahir: '1998-08-17',
 		gender: 'male',
 		poli: 'gigi',
@@ -41,7 +41,7 @@ let db_appointments = [
 		idPengunjung: '01',
 	},
 	{
-		name: 'Damar',
+		name: 'damar',
 		tglLahir: '1998-08-17',
 		gender: 'male',
 		poli: 'umum',
@@ -52,7 +52,7 @@ let db_appointments = [
 		idPengunjung: '01',
 	},
 	{
-		name: 'Damar',
+		name: 'damar',
 		tglLahir: '1998-08-17',
 		gender: 'male',
 		poli: 'bedah',
@@ -252,6 +252,8 @@ function handleRead(event) {
 	let nama = document.getElementById('nameSearch').value;
 	nama = nama.toLowerCase();
 	let tglLahir = document.getElementById('birthdaySearch').value;
+
+	console.log(nama, tglLahir);
 
 	let found = db_appointments.find(function (value) {
 		return value.name === nama && value.tglLahir === tglLahir;
