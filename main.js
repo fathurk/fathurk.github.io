@@ -74,16 +74,24 @@ let db_appointments = [
 ];
 
 // inisialisasi restrictions untuk beberapa field pada form
-document.getElementById("birthday").max = new Date().toISOString().split("T")[0];
-document.getElementById("birthdaySearch").max = new Date().toISOString().split("T")[0];
-document.getElementById("appointmentDate").min = new Date().toISOString().split("T")[0];
-document.getElementById("appointmentDate").value = new Date().toISOString().split("T")[0];
+document.getElementById('birthday').max = new Date()
+	.toISOString()
+	.split('T')[0];
+document.getElementById('birthdaySearch').max = new Date()
+	.toISOString()
+	.split('T')[0];
+document.getElementById('appointmentDate').min = new Date()
+	.toISOString()
+	.split('T')[0];
+document.getElementById('appointmentDate').value = new Date()
+	.toISOString()
+	.split('T')[0];
 
 // ======= Functions untuk handle form create appointment =======
 
 /**
  * chooseDoc
- * 
+ *
  * Untuk menentukan dokter berdasarkan waktu dan poliklinik
  * @param jam  => jam appointment
  * @param poli => poliklinik tujuan
@@ -106,7 +114,7 @@ function chooseDoc(jam, poli) {
 
 /**
  * choosePoli
- * 
+ *
  * Event handler (change) untuk perubahan pada field waktu appointment di form
  * @param event
  */
@@ -118,10 +126,9 @@ function choosePoli(event) {
 	chooseDoc(jam, poli);
 }
 
-
 /**
  * createAppointment
- * 
+ *
  * Event handler (change) untuk perubahan pada field poliklinik di form
  * @param event
  */
@@ -132,24 +139,24 @@ function handleTimeChange(event) {
 }
 
 // tambah event handler (change) untuk perubahan pada field waktu appointment di form
-document.getElementById('appointmentTime').addEventListener('change', handleTimeChange);
+document
+	.getElementById('appointmentTime')
+	.addEventListener('change', handleTimeChange);
 
 // tambah event handler (change) untuk perubahan pada field poliklinik di form
 document.getElementById('poliklinik').addEventListener('change', choosePoli);
-
-
 
 // ======= Functions untuk CREATE appointment =======
 
 /**
  * generateId
- * 
+ *
  * Untuk membuat id untuk appintment baru menggunakan data dari user
  * @param nama => nama user
  * @param tgl  => tanggal lahir user
  * @param poli => poiliklinik yang akan dikunjungi user
  */
- function generateId(nama, tgl, poli) {
+function generateId(nama, tgl, poli) {
 	let id = `${
 		nama[0].toUpperCase() +
 		tgl +
@@ -164,7 +171,7 @@ submit.onsubmit = createAppointment; // assign event handler untuk form submit
 
 /**
  * createAppointment
- * 
+ *
  * Event handler (submit) untuk membuat appointment baru dan menyimpan appointment tersebut ke db_appointments
  * @param event
  */
@@ -189,7 +196,7 @@ function createAppointment(event) {
 	let keluhan = document.getElementById('keluhan').value;
 	let jam = document.getElementById('appointmentTime').value;
 
-	appointment.name = namaPengunjung.toUpperCase();
+	appointment.name = namaPengunjung.toLowerCase();
 	appointment.gender = genderPengunjung;
 	appointment.tglLahir = tanggalLahir;
 	appointment.poli = poliklinik;
@@ -209,11 +216,11 @@ function createAppointment(event) {
 
 	db_appointments.push(appointment);
 
-	document.getElementById("alert-success").style.display = "block"
+	document.getElementById('alert-success').style.display = 'block';
 
-	setTimeout(function() {
-		document.getElementById("alert-success").style.display = "none"
-	}, 3000)
+	setTimeout(function () {
+		document.getElementById('alert-success').style.display = 'none';
+	}, 3000);
 
 	event.preventDefault();
 }
@@ -221,11 +228,11 @@ function createAppointment(event) {
 // ======= Functions untuk READ appointment =======
 
 let read = document.getElementById('form-read');
-read.onsubmit = handleRead;	// assign event handler untuk form submit
+read.onsubmit = handleRead; // assign event handler untuk form submit
 
 /**
  * handleRead
- * 
+ *
  * Event handler (submit) untuk mencari appointment berdasarkan nama dan tanggal lahir user.
  * Memanggil function renderResult() diakhir function.
  * @param event
@@ -236,30 +243,30 @@ function handleRead(event) {
 	let nama = document.getElementById('nameSearch').value;
 	let tglLahir = document.getElementById('birthdaySearch').value;
 
-	let found = db_appointments.find( function(value) {
-		return value.nama === nama && value.tglLahir === tglLahir
-	})
+	let found = db_appointments.find(function (value) {
+		return value.nama === nama && value.tglLahir === tglLahir;
+	});
 
-	if(!found) {
-		document.getElementById("alert-warning").style.display = "block"
+	if (!found) {
+		document.getElementById('alert-warning').style.display = 'block';
 
-		setTimeout(function() {
-			document.getElementById("alert-warning").style.display = "none"
-		}, 3000)
+		setTimeout(function () {
+			document.getElementById('alert-warning').style.display = 'none';
+		}, 3000);
 	} else {
 		output = db_appointments.filter(function (value) {
 			console.log(nama);
 			console.log(tglLahir);
 			return nama === value.name && tglLahir === value.tglLahir;
 		});
-	
+
 		renderResult(output);
 	}
 }
 
 /**
  * renderResult
- * 
+ *
  * Untuk render appointment cards secara dinamis dengan memasukan element baru ke DOM.
  * @param appointments => daftar appointment yang akan di render
  */
@@ -329,13 +336,11 @@ function renderResult(appointments) {
 	}
 }
 
-
-
 // ======= Function untuk DELETE appointment
 
 /**
  * handleDelete
- * 
+ *
  * Event handler (click) untuk menghapus appointment dari db_appointments dan
  * menghapus card appointment tersebut dari DOM
  * @param event
@@ -354,16 +359,18 @@ function handleDelete(event) {
 	event.target.parentElement.remove();
 }
 
-
-
 // ======= Functions untuk handle close alert =======
 
 // tambah event listener (click) untuk button close alert success
-document.getElementById("close-alert-success").addEventListener("click", function(event) {
-	document.getElementById("alert-success").style.display = "block"
-})
+document
+	.getElementById('close-alert-success')
+	.addEventListener('click', function (event) {
+		document.getElementById('alert-success').style.display = 'block';
+	});
 
 // tambah event listener (click) untuk button close alert warning
-document.getElementById("close-alert-warning").addEventListener("click", function(event) {
-	document.getElementById("alert-warning").style.display = "block"
-})
+document
+	.getElementById('close-alert-warning')
+	.addEventListener('click', function (event) {
+		document.getElementById('alert-warning').style.display = 'block';
+	});
