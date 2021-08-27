@@ -1,13 +1,13 @@
 // //jika sabtu minggu yang enable poliUmum
 // 09 s/d 18 diluar itu  jam istirahat atau di luar jam kerja
-// const dataBase = [
+// const db_poliklinik = [
 //     {namePoli: 'anak', dokter: ['Raihan','Matthew','fathur']},
 //     {namePoli: 'internis', dokter: ['Agnia','Arif','Colin']},
 //     {namePoli: 'gigi', dokter: ['Darwin','Yura','Huang']},
 //     {namePoli: 'umum', dokter:['Gilbert','Krisna','Juluis']},
 //     {namePoli: 'bedah', dokter:['Indra','Vina','Royan']}
 // ]
-const dataBase = {
+const db_poliklinik = {
 	anak: ['Raihan', 'Matthew', 'fathur'],
 	internis: ['Agnia', 'Arif', 'Colin'],
 	gigi: ['Darwin', 'Yura', 'Huang'],
@@ -15,7 +15,7 @@ const dataBase = {
 	bedah: ['Indra', 'Vina', 'Royan'],
 };
 
-let arr = [
+let db_appointments = [
 	{
 		name: 'haha',
 		tglLahir: '2003-07-02',
@@ -73,25 +73,39 @@ let arr = [
 	},
 ];
 
-let submit = document.getElementById('form-create');
-submit.onsubmit = createAppointment;
 
+
+// ======= Functions untuk handle form create appointment =======
+
+/**
+ * chooseDoc
+ * 
+ * Untuk menentukan dokter berdasarkan waktu dan poliklinik
+ * @param jam  => jam appointment
+ * @param poli => poliklinik tujuan
+ */
 function chooseDoc(jam, poli) {
 	if (jam >= 800 && jam <= 1059) {
-		document.getElementById('dokter').value = dataBase[poli][0];
+		document.getElementById('dokter').value = db_poliklinik[poli][0];
 	} else if (jam >= 1100 && jam <= 1359) {
-		document.getElementById('dokter').value = dataBase[poli][1];
+		document.getElementById('dokter').value = db_poliklinik[poli][1];
 	} else if (jam >= 1400 && jam <= 1700) {
-		document.getElementById('dokter').value = dataBase[poli][2];
+		document.getElementById('dokter').value = db_poliklinik[poli][2];
 	} else if (jam < 800) {
 		document.getElementById('appointmentTime').value = '08:00';
-		document.getElementById('dokter').value = dataBase[poli][0];
+		document.getElementById('dokter').value = db_poliklinik[poli][0];
 	} else if (jam > 1700) {
 		document.getElementById('appointmentTime').value = '17:00';
-		document.getElementById('dokter').value = dataBase[poli][2];
+		document.getElementById('dokter').value = db_poliklinik[poli][2];
 	}
 }
 
+/**
+ * choosePoli
+ * 
+ * Event handler (change) untuk perubahan pada field waktu appointment di form
+ * @param event
+ */
 function choosePoli(event) {
 	let jam = Number(
 		document.getElementById('appointmentTime').value.replace(':', '')
@@ -100,18 +114,38 @@ function choosePoli(event) {
 	chooseDoc(jam, poli);
 }
 
+
+/**
+ * createAppointment
+ * 
+ * Event handler (change) untuk perubahan pada field poliklinik di form
+ * @param event
+ */
 function handleTimeChange(event) {
 	let jam = Number(event.target.value.replace(':', ''));
 	let poli = document.getElementById('poliklinik').value;
 	chooseDoc(jam, poli);
 }
-document
-	.getElementById('appointmentTime')
-	.addEventListener('change', handleTimeChange);
 
+// tambah event handler (change) untuk perubahan pada field waktu appointment di form
+document.getElementById('appointmentTime').addEventListener('change', handleTimeChange);
+
+// tambah event handler (change) untuk perubahan pada field poliklinik di form
 document.getElementById('poliklinik').addEventListener('change', choosePoli);
 
-function generateId(nama, tgl, poli) {
+
+
+// ======= Functions untuk CREATE appointment =======
+
+/**
+ * generateId
+ * 
+ * Untuk membuat id untuk appintment baru menggunakan data dari user
+ * @param nama => nama user
+ * @param tgl  => tanggal lahir user
+ * @param poli => poiliklinik yang akan dikunjungi user
+ */
+ function generateId(nama, tgl, poli) {
 	let id = `${
 		nama[0].toUpperCase() +
 		tgl +
@@ -121,7 +155,28 @@ function generateId(nama, tgl, poli) {
 	return id;
 }
 
+let submit = document.getElementById('form-create');
+submit.onsubmit = createAppointment; // assign event handler untuk form submit
+
+/**
+ * createAppointment
+ * 
+ * Event handler (submit) untuk membuat appointment baru dan menyimpan appointment tersebut ke db_appointments
+ * @param event
+ */
 function createAppointment(event) {
+	let appointment = {
+		name: undefined,
+		tglLahir: undefined,
+		gender: undefined,
+		poli: undefined,
+		keluhan: undefined,
+		dokter: undefined,
+		jam: undefined,
+		dateBooking: undefined,
+		idPengunjung: undefined,
+	};
+
 	let namaPengunjung = document.getElementById('nama').value;
 	let genderPengunjung = document.getElementById('gender').value;
 	let tanggalLahir = document.getElementById('birthday').value;
@@ -130,64 +185,85 @@ function createAppointment(event) {
 	let keluhan = document.getElementById('keluhan').value;
 	let jam = document.getElementById('appointmentTime').value;
 
-	dataPengunjung.name = namaPengunjung.toUpperCase();
-	dataPengunjung.gender = genderPengunjung;
-	dataPengunjung.tglLahir = tanggalLahir;
-	dataPengunjung.poli = poliklinik;
-	dataPengunjung.dateBooking = tanggalAppointment;
-	dataPengunjung.keluhan = keluhan;
-	dataPengunjung.jam = jam;
+	appointment.name = namaPengunjung.toUpperCase();
+	appointment.gender = genderPengunjung;
+	appointment.tglLahir = tanggalLahir;
+	appointment.poli = poliklinik;
+	appointment.dateBooking = tanggalAppointment;
+	appointment.keluhan = keluhan;
+	appointment.jam = jam;
 
 	let tanggal =
-		dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 2] +
-		dataPengunjung.tglLahir[dataPengunjung.tglLahir.length - 1];
+		appointment.tglLahir[appointment.tglLahir.length - 2] +
+		appointment.tglLahir[appointment.tglLahir.length - 1];
 
-	dataPengunjung.idPengunjung = generateId(
-		dataPengunjung.name,
+	appointment.idPengunjung = generateId(
+		appointment.name,
 		tanggal,
-		dataPengunjung.poli
+		appointment.poli
 	);
-	arr.push(dataPengunjung);
+
+	db_appointments.push(appointment);
+
+	document.getElementById("alert-success").style.display = "block"
+
+	setTimeout(function() {
+		document.getElementById("alert-success").style.display = "none"
+	}, 3000)
+
 	event.preventDefault();
 }
 
-let read = document.getElementById('form-read');
-read.onsubmit = infoAppointment;
+// ======= Functions untuk READ appointment =======
 
-function infoAppointment(event) {
+let read = document.getElementById('form-read');
+read.onsubmit = handleRead;	// assign event handler untuk form submit
+
+/**
+ * handleRead
+ * 
+ * Event handler (submit) untuk mencari appointment berdasarkan nama dan tanggal lahir user.
+ * Memanggil function renderResult() diakhir function.
+ * @param event
+ */
+function handleRead(event) {
 	event.preventDefault();
 	let output = [];
 	let nama = document.getElementById('nameSearch').value;
 	let tglLahir = document.getElementById('birthdaySearch').value;
 
-	output = arr.filter(function (value) {
-		console.log(nama);
-		console.log(tglLahir);
-		return nama === value.name && tglLahir === value.tglLahir;
-	});
+	let found = db_appointments.find( function(value) {
+		return value.nama === nama && value.tglLahir === tglLahir
+	})
 
-	renderResult(output);
+	if(!found) {
+		document.getElementById("alert-warning").style.display = "block"
+
+		setTimeout(function() {
+			document.getElementById("alert-warning").style.display = "none"
+		}, 3000)
+	} else {
+		output = db_appointments.filter(function (value) {
+			console.log(nama);
+			console.log(tglLahir);
+			return nama === value.name && tglLahir === value.tglLahir;
+		});
+	
+		renderResult(output);
+	}
 }
 
-function handleDelete(event) {
-	let id = event.target.id;
-
-	let output = [];
-
-	output = arr.filter(function (value) {
-		return value.idPengunjung !== id;
-	});
-
-	arr = output;
-
-	event.target.parentElement.remove();
-}
-
-function renderResult(arr) {
+/**
+ * renderResult
+ * 
+ * Untuk render appointment cards secara dinamis dengan memasukan element baru ke DOM.
+ * @param appointments => daftar appointment yang akan di render
+ */
+function renderResult(appointments) {
 	let results = document.getElementsByClassName('wrapper')[0];
 	results.textContent = '';
 
-	for (const appointment of arr) {
+	for (const appointment of appointments) {
 		let card = document.createElement('div');
 		card.classList.add('card');
 
@@ -249,24 +325,41 @@ function renderResult(arr) {
 	}
 }
 
-let dataPengunjung = {
-	name: undefined,
-	tglLahir: undefined,
-	gender: undefined,
-	poli: undefined,
-	keluhan: undefined,
-	dokter: undefined,
-	jam: undefined,
-	dateBooking: undefined,
-	idPengunjung: undefined,
-};
 
-let pengunjung = {
-	name: 'Surya',
-	tglLaahir: '18/06/1996',
-	gender: 'male',
-	poli: 'poli gigi',
-	waktuAppointment: '13:20',
-	keluhan: 'gusi bengkak',
-	dateBooking: '2021/08/21',
-};
+
+// ======= Function untuk DELETE appointment
+
+/**
+ * handleDelete
+ * 
+ * Event handler (click) untuk menghapus appointment dari db_appointments dan
+ * menghapus card appointment tersebut dari DOM
+ * @param event
+ */
+function handleDelete(event) {
+	let id = event.target.id;
+
+	let output = [];
+
+	output = db_appointments.filter(function (value) {
+		return value.idPengunjung !== id;
+	});
+
+	db_appointments = output;
+
+	event.target.parentElement.remove();
+}
+
+
+
+// ======= Functions untuk handle close alert =======
+
+// tambah event listener (click) untuk button close alert success
+document.getElementById("close-alert-success").addEventListener("click", function(event) {
+	document.getElementById("alert-success").style.display = "block"
+})
+
+// tambah event listener (click) untuk button close alert warning
+document.getElementById("close-alert-warning").addEventListener("click", function(event) {
+	document.getElementById("alert-warning").style.display = "block"
+})
