@@ -195,6 +195,7 @@ function createAppointment(event) {
 	let tanggalAppointment = document.getElementById('appointmentDate').value;
 	let keluhan = document.getElementById('keluhan').value;
 	let jam = document.getElementById('appointmentTime').value;
+  let dokter = document.getElementById('dokter').value
 
 	appointment.name = namaPengunjung.toLowerCase();
 	appointment.gender = genderPengunjung;
@@ -203,6 +204,7 @@ function createAppointment(event) {
 	appointment.dateBooking = tanggalAppointment;
 	appointment.keluhan = keluhan;
 	appointment.jam = jam;
+  appointment.dokter = dokter;
 
 	let tanggal =
 		appointment.tglLahir[appointment.tglLahir.length - 2] +
