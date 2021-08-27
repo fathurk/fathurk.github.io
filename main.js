@@ -73,7 +73,11 @@ let db_appointments = [
 	},
 ];
 
-// inisialisasi restrictions untuk beberapa field pada form
+// inisialisasi untuk beberapa field pada form
+chooseDoc(
+	Number(document.getElementById('appointmentTime').value.replace(':', '')),
+	document.getElementById('poliklinik').value
+)
 document.getElementById('birthday').max = new Date()
 	.toISOString()
 	.split('T')[0];
@@ -98,17 +102,17 @@ document.getElementById('appointmentDate').value = new Date()
  */
 function chooseDoc(jam, poli) {
 	if (jam >= 800 && jam <= 1059) {
-		document.getElementById('dokter').value = db_poliklinik[poli][0];
+		document.getElementById('dokter').value = "dr. " + db_poliklinik[poli][0];
 	} else if (jam >= 1100 && jam <= 1359) {
-		document.getElementById('dokter').value = db_poliklinik[poli][1];
+		document.getElementById('dokter').value = "dr. " + db_poliklinik[poli][1];
 	} else if (jam >= 1400 && jam <= 1700) {
-		document.getElementById('dokter').value = db_poliklinik[poli][2];
+		document.getElementById('dokter').value = "dr. " + db_poliklinik[poli][2];
 	} else if (jam < 800) {
 		document.getElementById('appointmentTime').value = '08:00';
-		document.getElementById('dokter').value = db_poliklinik[poli][0];
+		document.getElementById('dokter').value = "dr. " + db_poliklinik[poli][0];
 	} else if (jam > 1700) {
 		document.getElementById('appointmentTime').value = '17:00';
-		document.getElementById('dokter').value = db_poliklinik[poli][2];
+		document.getElementById('dokter').value = "dr. " + db_poliklinik[poli][2];
 	}
 }
 
@@ -218,6 +222,18 @@ function createAppointment(event) {
 
 	db_appointments.push(appointment);
 
+	// reset (kosongin) form
+	event.target.reset()
+	document.getElementById('appointmentDate').value = new Date()
+		.toISOString()
+		.split('T')[0];
+	document.getElementById('appointmentTime').value = '08:00';
+	chooseDoc(
+		Number(document.getElementById('appointmentTime').value.replace(':', '')),
+		document.getElementById('poliklinik').value
+	)
+
+	// tampilkan alert success
 	document.getElementById('alert-success').style.display = 'block';
 
 	setTimeout(function () {
@@ -307,7 +323,7 @@ function renderResult(appointments) {
 		poli.textContent = `Poliklinik ${appointment.poli}`;
 
 		let dokter = document.createElement('span');
-		dokter.textContent = `Dr. ${appointment.dokter}`;
+		dokter.textContent = appointment.dokter;
 
 		let booking = document.createElement('span');
 		let bookingDate = new Date(appointment.dateBooking);
