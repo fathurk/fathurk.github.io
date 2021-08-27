@@ -241,6 +241,7 @@ function handleRead(event) {
 	event.preventDefault();
 	let output = [];
 	let nama = document.getElementById('nameSearch').value;
+	nama = nama.toLowerCase();
 	let tglLahir = document.getElementById('birthdaySearch').value;
 
 	let found = db_appointments.find(function (value) {
