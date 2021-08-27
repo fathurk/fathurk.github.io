@@ -73,7 +73,11 @@ let db_appointments = [
 	},
 ];
 
-
+// inisialisasi restrictions untuk beberapa field pada form
+document.getElementById("birthday").max = new Date().toISOString().split("T")[0];
+document.getElementById("birthdaySearch").max = new Date().toISOString().split("T")[0];
+document.getElementById("appointmentDate").min = new Date().toISOString().split("T")[0];
+document.getElementById("appointmentDate").value = new Date().toISOString().split("T")[0];
 
 // ======= Functions untuk handle form create appointment =======
 
