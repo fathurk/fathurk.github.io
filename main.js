@@ -1,12 +1,3 @@
-// //jika sabtu minggu yang enable poliUmum
-// 09 s/d 18 diluar itu  jam istirahat atau di luar jam kerja
-// const db_poliklinik = [
-//     {namePoli: 'anak', dokter: ['Raihan','Matthew','fathur']},
-//     {namePoli: 'internis', dokter: ['Agnia','Arif','Colin']},
-//     {namePoli: 'gigi', dokter: ['Darwin','Yura','Huang']},
-//     {namePoli: 'umum', dokter:['Gilbert','Krisna','Juluis']},
-//     {namePoli: 'bedah', dokter:['Indra','Vina','Royan']}
-// ]
 const db_poliklinik = {
 	anak: ['Raihan', 'Matthew', 'fathur'],
 	internis: ['Agnia', 'Arif', 'Colin'],
