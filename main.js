@@ -253,8 +253,6 @@ function handleRead(event) {
 	nama = nama.toLowerCase();
 	let tglLahir = document.getElementById('birthdaySearch').value;
 
-	console.log(nama, tglLahir);
-
 	let found = db_appointments.find(function (value) {
 		return value.name === nama && value.tglLahir === tglLahir;
 	});
