@@ -195,7 +195,7 @@ function createAppointment(event) {
 	let tanggalAppointment = document.getElementById('appointmentDate').value;
 	let keluhan = document.getElementById('keluhan').value;
 	let jam = document.getElementById('appointmentTime').value;
-  let dokter = document.getElementById('dokter').value
+	let dokter = document.getElementById('dokter').value;
 
 	appointment.name = namaPengunjung.toLowerCase();
 	appointment.gender = genderPengunjung;
@@ -204,7 +204,7 @@ function createAppointment(event) {
 	appointment.dateBooking = tanggalAppointment;
 	appointment.keluhan = keluhan;
 	appointment.jam = jam;
-  appointment.dokter = dokter;
+	appointment.dokter = dokter;
 
 	let tanggal =
 		appointment.tglLahir[appointment.tglLahir.length - 2] +
@@ -258,8 +258,6 @@ function handleRead(event) {
 		}, 3000);
 	} else {
 		output = db_appointments.filter(function (value) {
-			console.log(nama);
-			console.log(tglLahir);
 			return nama === value.name && tglLahir === value.tglLahir;
 		});
 
@@ -295,21 +293,21 @@ function renderResult(appointments) {
 
 		let nama = document.createElement('span');
 		nama.style.fontWeight = '600';
-		nama.textContent = appointment.name;
+		nama.textContent = appointment.name.toUpperCase();
 
 		let dataPasien = document.createElement('span');
 		let birthday = new Date(appointment.tglLahir);
 		birthday = `${birthday.getDate()}/${
 			birthday.getMonth() + 1
 		}/${birthday.getFullYear()}`;
-		dataPasien.textContent = `${appointment.gender} - ${birthday}`;
+		dataPasien.textContent = `${appointment.gender.toUpperCase()} - ${birthday}`;
 
 		let poli = document.createElement('span');
 		poli.style.fontWeight = '600';
-		poli.textContent = appointment.poli;
+		poli.textContent = `Poliklinik ${appointment.poli}`;
 
 		let dokter = document.createElement('span');
-		dokter.textContent = appointment.dokter;
+		dokter.textContent = `Dr. ${appointment.dokter}`;
 
 		let booking = document.createElement('span');
 		let bookingDate = new Date(appointment.dateBooking);
