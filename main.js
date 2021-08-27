@@ -244,7 +244,7 @@ function handleRead(event) {
 	let tglLahir = document.getElementById('birthdaySearch').value;
 
 	let found = db_appointments.find(function (value) {
-		return value.nama === nama && value.tglLahir === tglLahir;
+		return value.name === nama && value.tglLahir === tglLahir;
 	});
 
 	if (!found) {
